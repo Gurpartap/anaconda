@@ -40,6 +40,7 @@
 package anaconda
 
 import (
+	"bytes"
 	"compress/zlib"
 	"encoding/json"
 	"fmt"
