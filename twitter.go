@@ -290,7 +290,13 @@ func decodeResponse(resp *http.Response, data interface{}) error {
 	} else if resp.StatusCode != 200 {
 		return newApiError(resp)
 	}
-	return json.NewDecoder(resp.Body).Decode(data)
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	body = bytes.Replace(body, []byte("\\u0000"), []byte{}, -1)
+	return json.Unmarshal(body, data)
 }
 
 func NewApiError(resp *http.Response) *ApiError {
