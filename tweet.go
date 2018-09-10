@@ -129,7 +129,7 @@ func (t *Tweet) extractExtendedTweet() {
 
 	// if the API supplied us with information how to extract the shortened
 	// text, extract it
-	if len(t.Text) == 0 && len(t.DisplayTextRange) == 2 {
+	if len(t.Text) == 0 && len(t.DisplayTextRange) == 2 && len(t.FullText) > t.DisplayTextRange[1] {
 		t.Text = t.FullText[t.DisplayTextRange[0]:t.DisplayTextRange[1]]
 	}
 	// if the truncated text is still empty then full & truncated text are equal
